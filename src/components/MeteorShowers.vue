@@ -30,8 +30,7 @@ export default {
 
       BURST_CHANCE: 0.2,
       BURST_MIN_COUNT: 2,
-      BURST_MAX_COUNT: 5,
-      BURST_MAX_DELAY_MS: 150,
+      BURST_MAX_COUNT: 4,
       PAUSE_MIN_MS: 100,
       PAUSE_MAX_MS: 1000,
     };
@@ -145,7 +144,7 @@ export default {
             const burstCount =
               Math.floor(Math.random() * (this.BURST_MAX_COUNT - this.BURST_MIN_COUNT + 1)) + this.BURST_MIN_COUNT;
             for (let i = 0; i < burstCount; i++) {
-              setTimeout(() => this.spawnMeteor(), Math.random() * this.BURST_MAX_DELAY_MS);
+              this.spawnMeteor();
             }
           } else {
             this.spawnMeteor();
