@@ -43,7 +43,8 @@ export default {
       const startX = Math.random() * spawnZoneWidth + spawnZoneOffset;
       const startY = 0;
 
-      const angle = Math.atan2(startY - this.radiant.positionY, startX - this.radiant.positionX);
+      // Calculate the angle from the radiant to the meteor's starting position
+      const trajectoryAngle = Math.atan2(startY - this.radiant.positionY, startX - this.radiant.positionX);
 
       const speed = Math.random() * (this.METEOR_SPEED_MAX - this.METEOR_SPEED_MIN) + this.METEOR_SPEED_MIN;
       const length = Math.random() * (this.METEOR_LENGTH_MAX - this.METEOR_LENGTH_MIN) + this.METEOR_LENGTH_MIN;
@@ -54,8 +55,8 @@ export default {
       this.meteors.push({
         positionX: startX,
         positionY: startY,
-        stepSizeX: Math.cos(angle) * speed,
-        stepSizeY: Math.sin(angle) * speed,
+        stepSizeX: Math.cos(trajectoryAngle) * speed,
+        stepSizeY: Math.sin(trajectoryAngle) * speed,
         length,
         lineWidth,
         opacity,
