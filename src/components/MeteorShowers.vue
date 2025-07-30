@@ -28,11 +28,11 @@ export default {
       SPAWN_ZONE_WIDTH_SCALE: 0.2,
       RADIANT_POSITION_Y: -50,
 
-      BURST_CHANCE: 0.2,
+      BURST_CHANCE: 0.05,
       BURST_MIN_COUNT: 2,
-      BURST_MAX_COUNT: 4,
-      PAUSE_MIN_MS: 100,
-      PAUSE_MAX_MS: 1000,
+      BURST_MAX_COUNT: 3,
+      PAUSE_MIN_MS: 1000,
+      PAUSE_MAX_MS: 3000,
     };
   },
   methods: {
