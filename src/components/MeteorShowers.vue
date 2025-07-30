@@ -31,7 +31,7 @@ export default {
       BURST_CHANCE: 0.2,
       BURST_MIN_COUNT: 2,
       BURST_MAX_COUNT: 5,
-      BURST_MAX_DELAY_MS: 800,
+      BURST_MAX_DELAY_MS: 150,
       PAUSE_MIN_MS: 100,
       PAUSE_MAX_MS: 1000,
     };
