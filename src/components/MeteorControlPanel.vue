@@ -1,29 +1,41 @@
 <template>
   <div class="meteor-control-panel">
-    <h2 class="control-title">Meteor controls</h2>
-    <div v-for="(value, key) in localConfig" :key="key" class="control-row">
-      <div class="control-label">{{ formatLabel(key) }}</div>
-      <div class="control-slider">
-        <input
-          type="range"
-          :id="key + '-slider'"
-          :min="getMin(key)"
-          :max="getMax(key)"
-          :step="getStep(key)"
-          v-model.number="localConfig[key]"
-          @input="emitUpdate"
-        />
-      </div>
-      <div class="control-value">
-        <input
-          type="number"
-          :id="key + '-number'"
-          :min="getMin(key)"
-          :max="getMax(key)"
-          :step="getStep(key)"
-          v-model="localConfig[key]"
-          @input="onNumberInput(key, $event)"
-        />
+    <div class="control-header">
+      <h2 class="control-title" :style="{ marginRight: isOpen ? '0px' : '32px' }">Meteor controls</h2>
+      <button
+        class="toggle-btn icon-btn"
+        @click="isOpen = !isOpen"
+        :aria-label="isOpen ? 'Hide controls' : 'Show controls'"
+      >
+        <i v-if="isOpen" class="fa-solid fa-chevron-up"></i>
+        <i v-else class="fa-solid fa-chevron-down"></i>
+      </button>
+    </div>
+    <div v-if="isOpen">
+      <div v-for="(value, key) in localConfig" :key="key" class="control-row">
+        <div class="control-label">{{ formatLabel(key) }}</div>
+        <div class="control-slider">
+          <input
+            type="range"
+            :id="key + '-slider'"
+            :min="getMin(key)"
+            :max="getMax(key)"
+            :step="getStep(key)"
+            v-model.number="localConfig[key]"
+            @input="emitUpdate"
+          />
+        </div>
+        <div class="control-value">
+          <input
+            type="number"
+            :id="key + '-number'"
+            :min="getMin(key)"
+            :max="getMax(key)"
+            :step="getStep(key)"
+            v-model="localConfig[key]"
+            @input="onNumberInput(key, $event)"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -41,6 +53,7 @@ export default {
   data() {
     return {
       localConfig: { ...this.config },
+      isOpen: true,
       minMax: {
         METEOR_SPEED_MIN: [1, 30],
         METEOR_SPEED_MAX: [1, 30],
@@ -130,9 +143,40 @@ export default {
   font-size: 14px;
 }
 
-.control-title {
-  margin-top: 0;
+.control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
+  margin-right: -40px;
+  padding-right: 24px;
+}
+
+.control-title {
+  margin: 0;
+}
+
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.icon-btn:hover {
+  background: #444;
+  border-color: #bbb;
+}
+
+.toggle-btn {
+  background: none;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
 }
 
 .control-row {
