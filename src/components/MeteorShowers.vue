@@ -1,10 +1,16 @@
 <template>
-  <canvas id="meteor-canvas"></canvas>
+  <canvas id="meteor-canvas" ref="meteorCanvas"></canvas>
+  <MeteorControlPanel :config="meteorConfig" @update:config="onConfigUpdate" />
 </template>
 
 <script>
+import MeteorControlPanel from "./MeteorControlPanel.vue";
+
 export default {
   name: "MeteorShowers",
+  components: {
+    MeteorControlPanel,
+  },
   data() {
     return {
       context: null,
@@ -14,30 +20,30 @@ export default {
       radiant: null,
       animationFrameId: null,
       meteorTimeoutId: null,
+      meteorConfig: {
+        METEOR_SPEED_MIN: 6,
+        METEOR_SPEED_MAX: 13,
+        METEOR_LENGTH_MIN: 70,
+        METEOR_LENGTH_MAX: 220,
+        METEOR_LINEWIDTH_MIN: 2,
+        METEOR_LINEWIDTH_MAX: 6,
+        METEOR_OPACITY_MIN: 0.4,
+        METEOR_OPACITY_MAX: 1.0,
+        METEOR_FADING_FACTOR: 0.01,
+        SPAWN_ZONE_WIDTH_SCALE: 0.2,
+        RADIANT_POSITION_Y: -50,
 
-      METEOR_SPEED_MIN: 6,
-      METEOR_SPEED_MAX: 13,
-      METEOR_LENGTH_MIN: 70,
-      METEOR_LENGTH_MAX: 220,
-      METEOR_LINEWIDTH_MIN: 2,
-      METEOR_LINEWIDTH_MAX: 6,
-      METEOR_OPACITY_MIN: 0.4,
-      METEOR_OPACITY_MAX: 1.0,
-
-      METEOR_FADING_FACTOR: 0.01,
-      SPAWN_ZONE_WIDTH_SCALE: 0.2,
-      RADIANT_POSITION_Y: -50,
-
-      BURST_CHANCE: 0.05,
-      BURST_MIN_COUNT: 2,
-      BURST_MAX_COUNT: 3,
-      PAUSE_MIN_MS: 1000,
-      PAUSE_MAX_MS: 3000,
+        BURST_CHANCE: 0.05,
+        BURST_MIN_COUNT: 2,
+        BURST_MAX_COUNT: 3,
+        PAUSE_MIN_MS: 1000,
+        PAUSE_MAX_MS: 3000,
+      },
     };
   },
   methods: {
     spawnMeteor() {
-      const spawnZoneWidth = this.width * this.SPAWN_ZONE_WIDTH_SCALE;
+      const spawnZoneWidth = this.width * this.meteorConfig.SPAWN_ZONE_WIDTH_SCALE;
       const spawnZoneOffset = (this.width - spawnZoneWidth) / 2;
 
       const startX = Math.random() * spawnZoneWidth + spawnZoneOffset;
@@ -46,11 +52,18 @@ export default {
       // Calculate the angle from the radiant to the meteor's starting position
       const trajectoryAngle = Math.atan2(startY - this.radiant.positionY, startX - this.radiant.positionX);
 
-      const speed = Math.random() * (this.METEOR_SPEED_MAX - this.METEOR_SPEED_MIN) + this.METEOR_SPEED_MIN;
-      const length = Math.random() * (this.METEOR_LENGTH_MAX - this.METEOR_LENGTH_MIN) + this.METEOR_LENGTH_MIN;
+      const speed =
+        Math.random() * (this.meteorConfig.METEOR_SPEED_MAX - this.meteorConfig.METEOR_SPEED_MIN) +
+        this.meteorConfig.METEOR_SPEED_MIN;
+      const length =
+        Math.random() * (this.meteorConfig.METEOR_LENGTH_MAX - this.meteorConfig.METEOR_LENGTH_MIN) +
+        this.meteorConfig.METEOR_LENGTH_MIN;
       const lineWidth =
-        Math.random() * (this.METEOR_LINEWIDTH_MAX - this.METEOR_LINEWIDTH_MIN) + this.METEOR_LINEWIDTH_MIN;
-      const opacity = Math.random() * (this.METEOR_OPACITY_MAX - this.METEOR_OPACITY_MIN) + this.METEOR_OPACITY_MIN;
+        Math.random() * (this.meteorConfig.METEOR_LINEWIDTH_MAX - this.meteorConfig.METEOR_LINEWIDTH_MIN) +
+        this.meteorConfig.METEOR_LINEWIDTH_MIN;
+      const opacity =
+        Math.random() * (this.meteorConfig.METEOR_OPACITY_MAX - this.meteorConfig.METEOR_OPACITY_MIN) +
+        this.meteorConfig.METEOR_OPACITY_MIN;
 
       this.meteors.push({
         positionX: startX,
@@ -111,7 +124,7 @@ export default {
         // Update meteor position and opacity for the next frame
         meteor.positionX += meteor.stepSizeX;
         meteor.positionY += meteor.stepSizeY;
-        meteor.opacity -= this.METEOR_FADING_FACTOR;
+        meteor.opacity -= this.meteorConfig.METEOR_FADING_FACTOR;
 
         const isFadedOut = meteor.opacity <= 0;
         const isOffScreen =
@@ -127,13 +140,12 @@ export default {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.radiant.positionX = this.width / 2;
-
-      const canvas = this.$el;
+      const canvas = this.$refs.meteorCanvas;
       canvas.width = this.width;
       canvas.height = this.height;
     },
     setupCanvas() {
-      const canvas = this.$el;
+      const canvas = this.$refs.meteorCanvas;
       this.context = canvas.getContext("2d");
       canvas.width = this.width;
       canvas.height = this.height;
@@ -141,9 +153,10 @@ export default {
     scheduleNextMeteor() {
       this.meteorTimeoutId = setTimeout(
         () => {
-          if (Math.random() < this.BURST_CHANCE) {
+          if (Math.random() < this.meteorConfig.BURST_CHANCE) {
             const burstCount =
-              Math.floor(Math.random() * (this.BURST_MAX_COUNT - this.BURST_MIN_COUNT + 1)) + this.BURST_MIN_COUNT;
+              Math.floor(Math.random() * (this.meteorConfig.BURST_MAX_COUNT - this.meteorConfig.BURST_MIN_COUNT + 1)) +
+              this.meteorConfig.BURST_MIN_COUNT;
             for (let i = 0; i < burstCount; i++) {
               this.spawnMeteor();
             }
@@ -153,12 +166,18 @@ export default {
 
           this.scheduleNextMeteor();
         },
-        Math.random() < 0.5 ? this.PAUSE_MIN_MS : this.PAUSE_MAX_MS
+        Math.random() < 0.5 ? this.meteorConfig.PAUSE_MIN_MS : this.meteorConfig.PAUSE_MAX_MS
       );
+    },
+    onConfigUpdate(newConfig) {
+      this.meteorConfig = { ...newConfig };
+      if (this.radiant && this.radiant.positionY !== this.meteorConfig.RADIANT_POSITION_Y) {
+        this.radiant.positionY = this.meteorConfig.RADIANT_POSITION_Y;
+      }
     },
   },
   mounted() {
-    this.radiant = { positionX: this.width / 2, positionY: this.RADIANT_POSITION_Y };
+    this.radiant = { positionX: this.width / 2, positionY: this.meteorConfig.RADIANT_POSITION_Y };
     this.setupCanvas();
     this.drawMeteors();
     this.scheduleNextMeteor();
