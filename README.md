@@ -4,6 +4,10 @@
 
 A simple and customizable meteor shower effect created with Vue.js and HTML5 Canvas. This project provides a component that generates an animated meteor shower on a canvas element, with a control panel to adjust various parameters in real-time.
 
+## Live demo
+
+Try it out here: [https://imadsaddik.github.io/MeteorShowerEffect/](https://imadsaddik.github.io/MeteorShowerEffect/)
+
 Watch the full demo:
 
 https://github.com/user-attachments/assets/424499a2-5cf5-40e0-bec7-ade6b0bb1b84
