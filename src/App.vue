@@ -1,20 +1,14 @@
 <template>
   <MeteorShowers />
-  <!-- <MeteorDesigner /> -->
-  <!-- <AnimatedMeteor /> -->
 </template>
 
 <script>
 import MeteorShowers from "./components/MeteorShowers.vue";
-// import MeteorDesigner from "./components/MeteorDesigner.vue";
-// import AnimatedMeteor from "./components/AnimatedMeteor.vue";
 
 export default {
   name: "App",
   components: {
     MeteorShowers,
-    // MeteorDesigner,
-    // AnimatedMeteor,
   },
 };
 </script>
