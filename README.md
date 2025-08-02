@@ -8,8 +8,6 @@ A simple and customizable meteor shower effect created with Vue.js and HTML5 Can
 
 Try it out here: [https://imadsaddik.github.io/MeteorShowerEffect/](https://imadsaddik.github.io/MeteorShowerEffect/)
 
-Watch the full demo:
-
 https://github.com/user-attachments/assets/424499a2-5cf5-40e0-bec7-ade6b0bb1b84
 
 Watch my YouTube tutorial on how to create this effect: [Meteor shower effect tutorial](https://youtu.be/TN-25j35YHs)
