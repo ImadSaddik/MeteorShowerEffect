@@ -1,17 +1,17 @@
 <template>
-  <canvas id="comet-canvas"></canvas>
+  <canvas id="meteor-canvas"></canvas>
 </template>
 
 <script>
 export default {
-  name: "CometDesigner",
+  name: "MeteorDesigner",
   data() {
     return {
       context: null,
       width: window.innerWidth,
       height: window.innerHeight,
       scale: 3,
-      comet: {
+      meteor: {
         length: 250,
         lineWidth: 50,
         opacity: 1,
@@ -20,14 +20,14 @@ export default {
     };
   },
   watch: {
-    comet: {
+    meteor: {
       handler() {
-        this.drawComet();
+        this.drawMeteor();
       },
       deep: true,
     },
     scale() {
-      this.drawComet();
+      this.drawMeteor();
     },
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
       canvas.height = this.height;
     },
 
-    drawComet() {
+    drawMeteor() {
       // Clear the entire canvas before drawing
       this.context.clearRect(0, 0, this.width, this.height);
 
@@ -46,22 +46,22 @@ export default {
       const centerX = this.width / 2;
       const centerY = this.height / 2;
 
-      const scaledLength = this.comet.length * this.scale;
-      const scaledLineWidth = this.comet.lineWidth * this.scale;
+      const scaledLength = this.meteor.length * this.scale;
+      const scaledLineWidth = this.meteor.lineWidth * this.scale;
 
-      const headX = centerX + (scaledLength / 2) * Math.cos(this.comet.angle);
-      const headY = centerY + (scaledLength / 2) * Math.sin(this.comet.angle);
+      const headX = centerX + (scaledLength / 2) * Math.cos(this.meteor.angle);
+      const headY = centerY + (scaledLength / 2) * Math.sin(this.meteor.angle);
 
-      const tailX = centerX - (scaledLength / 2) * Math.cos(this.comet.angle);
-      const tailY = centerY - (scaledLength / 2) * Math.sin(this.comet.angle);
+      const tailX = centerX - (scaledLength / 2) * Math.cos(this.meteor.angle);
+      const tailY = centerY - (scaledLength / 2) * Math.sin(this.meteor.angle);
 
       // Draw the tail
       const tailGradient = this.context.createLinearGradient(headX, headY, tailX, tailY);
       tailGradient.addColorStop(0, "rgba(255, 255, 255, 0.6)");
       tailGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
 
-      const perpX = -Math.sin(this.comet.angle);
-      const perpY = Math.cos(this.comet.angle);
+      const perpX = -Math.sin(this.meteor.angle);
+      const perpY = Math.cos(this.meteor.angle);
 
       const headBase1X = headX + (scaledLineWidth / 2) * perpX;
       const headBase1Y = headY + (scaledLineWidth / 2) * perpY;
@@ -90,12 +90,12 @@ export default {
       const canvas = this.$el;
       canvas.width = this.width;
       canvas.height = this.height;
-      this.drawComet();
+      this.drawMeteor();
     },
   },
   mounted() {
     this.setupCanvas();
-    this.drawComet();
+    this.drawMeteor();
     window.addEventListener("resize", this.handleResize);
   },
   beforeUnmount() {
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style scoped>
-#comet-canvas {
+#meteor-canvas {
   position: fixed;
   top: 0;
   left: 0;

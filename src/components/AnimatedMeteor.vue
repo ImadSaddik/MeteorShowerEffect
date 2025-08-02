@@ -1,20 +1,20 @@
 <template>
   <div>
-    <canvas id="animated-comet-canvas"></canvas>
-    <div class="instructions">Press Enter to move the comet</div>
+    <canvas id="animated-meteor-canvas"></canvas>
+    <div class="instructions">Press Enter to move the meteor</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AnimatedComet",
+  name: "AnimatedMeteor",
   data() {
     return {
       context: null,
       width: window.innerWidth,
       height: window.innerHeight,
       scale: 3,
-      comet: {
+      meteor: {
         positionX: 150,
         positionY: 150,
         stepSizeX: 10,
@@ -27,17 +27,17 @@ export default {
   },
   methods: {
     setupCanvas() {
-      const canvas = this.$el.querySelector("#animated-comet-canvas");
+      const canvas = this.$el.querySelector("#animated-meteor-canvas");
       this.context = canvas.getContext("2d");
       canvas.width = this.width;
       canvas.height = this.height;
     },
 
     stepAnimation() {
-      this.comet.positionX += this.comet.stepSizeX;
-      this.comet.positionY += this.comet.stepSizeY;
+      this.meteor.positionX += this.meteor.stepSizeX;
+      this.meteor.positionY += this.meteor.stepSizeY;
 
-      this.drawComet();
+      this.drawMeteor();
     },
 
     handleKeyPress(event) {
@@ -46,22 +46,22 @@ export default {
       }
     },
 
-    drawComet() {
+    drawMeteor() {
       // Clear the entire canvas before drawing
       this.context.clearRect(0, 0, this.width, this.height);
 
       // Calculate the center, head, and tail positions
-      const scaledLength = this.comet.length * this.scale;
-      const scaledLineWidth = this.comet.lineWidth * this.scale;
+      const scaledLength = this.meteor.length * this.scale;
+      const scaledLineWidth = this.meteor.lineWidth * this.scale;
 
-      const headX = this.comet.positionX;
-      const headY = this.comet.positionY;
-      const angle = Math.atan2(this.comet.stepSizeY, this.comet.stepSizeX);
+      const headX = this.meteor.positionX;
+      const headY = this.meteor.positionY;
+      const angle = Math.atan2(this.meteor.stepSizeY, this.meteor.stepSizeX);
 
       const tailX = headX - Math.cos(angle) * scaledLength;
       const tailY = headY - Math.sin(angle) * scaledLength;
 
-      this.context.globalAlpha = this.comet.opacity;
+      this.context.globalAlpha = this.meteor.opacity;
 
       // Draw the tail
       const tailGradient = this.context.createLinearGradient(headX, headY, tailX, tailY);
@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     this.setupCanvas();
-    this.drawComet();
+    this.drawMeteor();
 
     window.addEventListener("keydown", this.handleKeyPress);
   },
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style scoped>
-#animated-comet-canvas {
+#animated-meteor-canvas {
   position: fixed;
   top: 0;
   left: 0;
