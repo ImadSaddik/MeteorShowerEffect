@@ -52,3 +52,76 @@ pnpm run serve
 ```
 
 You can now open your browser and navigate to `http://localhost:8000` to see the meteor shower effect in action.
+
+## Components
+
+### MeteorDesigner.vue
+
+If you want to design the meteor, import the `MeteorDesigner.vue` component in [App.vue](./src/App.vue). This component allows you to customize the meteor's appearance, including its color, size, and other visual properties.
+
+Use it this way in your `App.vue`:
+
+```vue
+<template>
+  <MeteorDesigner />
+</template>
+
+<script>
+import MeteorDesigner from "./components/MeteorDesigner.vue";
+
+export default {
+  name: "App",
+  components: {
+    MeteorDesigner,
+  },
+};
+</script>
+```
+
+### AnimatedMeteor.vue
+
+This component relies on the comet you designed using the `MeteorDesigner.vue` component. You should copy the meteor you designed in the `MeteorDesigner.vue` component and paste it into the `AnimatedMeteor.vue` component.
+
+`AnimatedMeteor.vue` will then allow you to use the `Enter` key to move the meteor across the screen.
+
+Use it this way in your `App.vue`:
+
+```vue
+<template>
+  <AnimatedMeteor />
+</template>
+
+<script>
+import AnimatedMeteor from "./components/AnimatedMeteor.vue";
+
+export default {
+  name: "App",
+  components: {
+    AnimatedMeteor,
+  },
+};
+</script>
+```
+
+### MeteorShowers.vue
+
+This component is the main meteor shower effect. It will move the meteors across the screen automatically, simulating a meteor shower. That component uses `MeteorControlPanel.vue` to allow you to customize the meteor shower parameters in real-time.
+
+Use it this way in your `App.vue`:
+
+```vue
+<template>
+  <MeteorShowers />
+</template>
+
+<script>
+import MeteorShowers from "./components/MeteorShowers.vue";
+
+export default {
+  name: "App",
+  components: {
+    MeteorShowers,
+  },
+};
+</script>
+```
