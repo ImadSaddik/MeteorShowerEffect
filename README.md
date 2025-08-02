@@ -129,3 +129,14 @@ export default {
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Contributions
+
+We welcome contributions! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## Need help?
+
+You can reach me through:  
+
+- **LinkedIn** – [Connect with me](https://www.linkedin.com/in/imadsaddik/).  
+- **Email** – [simad3647@gmail.com](mailto:simad3647@gmail.com).
