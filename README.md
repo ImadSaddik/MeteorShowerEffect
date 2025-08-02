@@ -25,3 +25,30 @@ This project allows you to do the following:
 All of these parameters can be adjusted in real-time using the following [control panel](./src/components/MeteorControlPanel.vue).
 
 ![Control panel](./images/control-panel.png)
+
+## Installation
+
+This is a Vue.js project, so make sure that you have installed Vue. Here is a link to the [Vue.js documentation](https://vuejs.org/guide/quick-start.html) for more information.
+
+Also make sure to install `pnpm` if you haven't already, as it is used to manage the dependencies in this project. Check out the [pnpm documentation](https://pnpm.io/installation) for installation instructions.
+
+After you have installed Vue and pnpm, you can clone this repository:
+
+```bash
+git clone https://github.com/ImadSaddik/MeteorShowerEffect.git
+cd MeteorShowerEffect
+```
+
+Then, install the dependencies:
+
+```bash
+pnpm install
+```
+
+Now you can run the development server:
+
+```bash
+pnpm run serve
+```
+
+You can now open your browser and navigate to `http://localhost:8000` to see the meteor shower effect in action.
