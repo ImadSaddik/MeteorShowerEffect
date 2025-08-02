@@ -1,20 +1,20 @@
 <template>
   <MeteorShowers />
-  <!-- <CometDesigner /> -->
-  <!-- <AnimatedComet /> -->
+  <!-- <MeteorDesigner /> -->
+  <!-- <AnimatedMeteor /> -->
 </template>
 
 <script>
 import MeteorShowers from "./components/MeteorShowers.vue";
-// import CometDesigner from "./components/CometDesigner.vue";
-// import AnimatedComet from "./components/AnimatedComet.vue";
+// import MeteorDesigner from "./components/MeteorDesigner.vue";
+// import AnimatedMeteor from "./components/AnimatedMeteor.vue";
 
 export default {
   name: "App",
   components: {
     MeteorShowers,
-    // CometDesigner,
-    // AnimatedComet,
+    // MeteorDesigner,
+    // AnimatedMeteor,
   },
 };
 </script>
