@@ -53,7 +53,7 @@ Now you can run the development server:
 pnpm run serve
 ```
 
-You can now open your browser and navigate to `http://localhost:8000` to see the meteor shower effect in action.
+You can now open your browser and navigate to `http://localhost:8000/MeteorShowerEffect/` to see the meteor shower effect in action.
 
 ## Components
 
